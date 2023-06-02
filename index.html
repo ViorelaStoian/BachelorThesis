@@ -15,37 +15,65 @@
             text-align: center;
         }
 
-        .map-list {
-            list-style: none;
-            padding: 0;
+        .map-container {
+            display: none;
         }
 
-        .map-item {
+        .map-container.active {
+            display: block;
+        }
+
+        .map-dropdown {
             margin-bottom: 10px;
         }
 
-        .map-link {
-            display: block;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
+        .map-dropdown select {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
             border-radius: 4px;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.3s ease;
-        }
-
-        .map-link:hover {
-            background-color: #f5f5f5;
         }
     </style>
+    <script>
+        function showMap(mapId) {
+            // Hide all map containers
+            var mapContainers = document.getElementsByClassName('map-container');
+            for (var i = 0; i < mapContainers.length; i++) {
+                mapContainers[i].classList.remove('active');
+            }
+
+            // Show the selected map container
+            var selectedMapContainer = document.getElementById(mapId);
+            selectedMapContainer.classList.add('active');
+        }
+    </script>
 </head>
 <body>
     <h1>Thesis Home Page</h1>
-    <ul class="map-list">
-        <li class="map-item">
-            <a class="map-link" href="coverage_map.html">Coverage Map</a>
-        </li>
-    </ul>
+    
+    <div class="map-dropdown">
+        <select onchange="showMap(this.value)">
+            <option value="coverage-map">Coverage Map</option>
+            <option value="bdo-coverage-map">Coverage Map for BDO</option>
+            <option value="seu-coverage-map">Coverage Map for SEU</option>
+            <option value="maintenance-coverage-map">Coverage Map for Maintenance</option>
+        </select>
+    </div>
+
+    <div id="coverage-map" class="map-container active">
+        <iframe src="coverage_map.html" width="100%" height="800vh"></iframe>
+    </div>
+
+    <div id="bdo-coverage-map" class="map-container">
+        <iframe src="BDO_coverage_map_with_points.html"width="100%" height="800vh"></iframe>
+    </div>
+
+    <div id="seu-coverage-map" class="map-container">
+        <iframe src="SEU_coverage_map_with_points.html"width="100%" height="800vh"></iframe>
+    </div>
+
+    <div id="maintenance-coverage-map" class="map-container">
+        <iframe src="Maintenance_coverage_map_with_points.html"width="100%" height="800vh"></iframe>
+    </div>
 </body>
 </html>
